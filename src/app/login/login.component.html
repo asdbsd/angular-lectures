@@ -1,0 +1,28 @@
+<form #form="ngForm" (ngSubmit)="loginHandler(form)">
+    <div class="form-group">
+        <label for="email" #highlight="appHighlight" [appHighlight]="true">Email</label>
+        <input type="text" name="email" id="email" #emailInput="ngModel" ngModel required email>
+        <ul *ngIf="emailInput.invalid && emailInput.touched" class="errors">
+            <li *ngIf="emailInput.errors?.['required']">Email is required</li>
+            <li *ngIf="emailInput.errors?.['email']">Email is invalid</li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <label for="email">Password</label>
+        <input type="password" name="password" id="password" #passwordInput="ngModel" ngModel required [minlength]="6">
+        <ul *ngIf="passwordInput.invalid && passwordInput.touched" class="errors">
+            <li *ngIf="passwordInput.errors?.['required']">Password is required</li>
+            <li *ngIf="passwordInput.errors?.['minlength']">Password must be minimum of 6 characters long.</li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <label for="email">Repeat Password</label>
+        <input type="password" name="repass" id="repass" #repass="ngModel" appSameFieldValue ngModel required [minlength]="6">
+        <ul *ngIf="repass.invalid && repass.touched" class="errors">
+            <li *ngIf="repass.errors?.['required']">Repass is required.</li>
+            <li *ngIf="repass.errors?.['minlength']">Minimum length is 6 characters.</li>
+            <li *ngIf="repass.errors?.['sameValue']">Password and repass doesn't match.</li>
+        </ul>
+    </div>
+    <button>Login</button>
+</form>
