@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
         <label for="email">Repeat Password</label>
-        <input type="password" name="repass" id="repass" #repass="ngModel" appSameFieldValue ngModel required [minlength]="6">
+        <input type="password" name="repass" id="repass" appSameValue="passwordInput" #repass="ngModel" appSameFieldValue ngModel required [minlength]="6">
         <ul *ngIf="repass.invalid && repass.touched" class="errors">
             <li *ngIf="repass.errors?.['required']">Repass is required.</li>
             <li *ngIf="repass.errors?.['minlength']">Minimum length is 6 characters.</li>

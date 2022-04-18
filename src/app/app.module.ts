@@ -14,8 +14,9 @@ import { TestModule } from './test/test.module';
 import { SharedModule } from './shared/shared.module';
 import { HighlightDirective } from './highlight.directive';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SameFieldValueDirective } from './same-field-value.directive';
+import { RegisterComponent } from './register/register.component';
 
 export const myStringInjectionToken = new InjectionToken('myString');
 
@@ -27,7 +28,8 @@ export const myStringInjectionToken = new InjectionToken('myString');
     NotFoundComponent,
     HighlightDirective,
     LoginComponent,
-    SameFieldValueDirective
+    SameFieldValueDirective,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ export const myStringInjectionToken = new InjectionToken('myString');
     SharedModule,
     TestModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [
