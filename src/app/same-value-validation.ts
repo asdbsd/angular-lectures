@@ -1,10 +1,10 @@
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl, ValidatorFn } from "@angular/forms";
 
 export const sameValueValidateFactory = (
     controlName: string,
     otherControl: AbstractControl,
     otherControlName: string
-): Function => {
+): ValidatorFn => {
     return function sameValueValidate(
         control: AbstractControl
     ) {

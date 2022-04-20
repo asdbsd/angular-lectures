@@ -1,4 +1,4 @@
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -8,7 +8,11 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/user-list'
+        redirectTo: '/about'
+    },
+    {
+        path: 'user',
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule)
     },
     {
         path: 'about',
@@ -28,4 +32,6 @@ const routes: Routes = [
     }
 ]
 
-export const AppRoutingModule = RouterModule.forRoot(routes);
+export const AppRoutingModule = RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules
+});

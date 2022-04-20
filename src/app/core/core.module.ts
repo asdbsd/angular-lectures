@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { ParamsActivate } from './guards/params.activate';
+import { appInterceptorProvider } from './app-interceptor';
 
 
 
@@ -19,7 +20,8 @@ import { ParamsActivate } from './guards/params.activate';
     RouterModule,
   ],
   providers: [
-    ParamsActivate
+    ParamsActivate,
+    appInterceptorProvider
   ],
   exports: [
     HeaderComponent,

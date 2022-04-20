@@ -1,5 +1,6 @@
-import { Component, OnInit} from '@angular/core';
-import { IUser } from '../../interfaces/user';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
+
 import { UserService } from '../user.service';
 
 @Component({
@@ -8,30 +9,29 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-list.component.scss']
 })
 
-export class UserListComponent implements OnInit {
+export class UserListComponent implements AfterViewInit {
 
- 
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
-  users: IUser[] | undefined;
-  constructor(private userService: UserService) {  }
+  users$ = this.userService.users$
 
-  ngOnInit(): void {
+  loadUsers = this.userService.loadUsers;
+
+  constructor(private userService: UserService) {
     this.loadUsers();
   }
 
-  loadUsers(search: string = ''): void {
-    this.users = undefined;
-    this.userService.loadUsers(search).subscribe(users => this.users = users);
-  }
-  reloadButtonHandler(): void {
-    this.loadUsers();
+  ngAfterViewInit(): void {
+    fromEvent(this.searchInput.nativeElement, 'input').pipe(
+      map((e) => (e.target as HTMLInputElement).value),
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe((value) => this.loadUsers(value));
   }
 
-  searchButtonHandler(search: HTMLInputElement): void {
-    const { value } = search;
+  searchButtonHandler(searchInput: HTMLInputElement) {
+    const { value } = searchInput;
     this.loadUsers(value);
   }
-
-
 
 }

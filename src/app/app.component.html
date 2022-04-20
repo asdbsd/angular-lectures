@@ -2,6 +2,9 @@
 
 <app-header></app-header>
 
+{{ data | getProp: [0, 'test'] }}
+
+<button (click)="addItem()">Add new data item</button>
 <router-outlet></router-outlet>
 
 
